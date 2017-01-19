@@ -114,17 +114,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
             ");\n" +
             "";
 
-    String sqlTransactionTypeCreate = "" +
-            "CREATE TABLE main.transaction_type (\n" +
-            "    id             INTEGER PRIMARY KEY AUTOINCREMENT\n" +
-            "                   UNIQUE\n" +
-            "                   NOT NULL,\n" +
-            "    sync           INTEGER DEFAULT 0,\n" +
-            "    name   TEXT    UNIQUE\n" +
-            "                   NOT NULL,\n" +
-            "    system INTEGER DEFAULT (0) \n" +
-            ");\n" +
-            "";
+
 
     public AppbacoDatabaseHelper(Context contexto, String nombre, CursorFactory factory, int version) {
         super(contexto, nombre, factory, version);
@@ -138,7 +128,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(sqlTransactionCategoryCreate);
         db.execSQL(sqlTransactionDetailCreate);
         db.execSQL(sqlTransactionHeaderCreate);
-        db.execSQL(sqlTransactionTypeCreate);
+
 
         this.defaultTableRecords(db);
     }
@@ -152,7 +142,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS temp.transaction_category");
         db.execSQL("DROP TABLE IF EXISTS temp.transaction_header");
         db.execSQL("DROP TABLE IF EXISTS temp.transaction_detail");
-        db.execSQL("DROP TABLE IF EXISTS temp.transaction_type");
+
 
         // Se pasan los valores actuales de cada tabla a una nueva tabla temporal
         db.execSQL("CREATE TEMPORARY TABLE temp.configuration AS  SELECT * FROM main.configuration;");
@@ -161,7 +151,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TEMPORARY TABLE temp.transaction_category AS  SELECT * FROM main.transaction_category;");
         db.execSQL("CREATE TEMPORARY TABLE temp.transaction_header AS  SELECT * FROM main.transaction_header;");
         db.execSQL("CREATE TEMPORARY TABLE temp.transaction_detail AS  SELECT * FROM main.transaction_detail;");
-        db.execSQL("CREATE TEMPORARY TABLE temp.transaction_type AS  SELECT * FROM main.transaction_type;");
+
 
         //Se elimina la versión anterior de la tabla
         db.execSQL("DROP TABLE IF EXISTS main.configuration");
@@ -170,7 +160,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS main.transaction_category");
         db.execSQL("DROP TABLE IF EXISTS main.transaction_header");
         db.execSQL("DROP TABLE IF EXISTS main.transaction_detail");
-        db.execSQL("DROP TABLE IF EXISTS main.transaction_type");
+
 
         //Se crea la nueva versión de la tabla
         db.execSQL(sqlConfigurationCreate);
@@ -179,7 +169,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(sqlTransactionCategoryCreate);
         db.execSQL(sqlTransactionDetailCreate);
         db.execSQL(sqlTransactionHeaderCreate);
-        db.execSQL(sqlTransactionTypeCreate);
+
 
         //Se pasan los valores de las tablas temporales a las nuevas tablas
         db.execSQL("insert into main.configuration " +
@@ -192,12 +182,12 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
                 "   select id,sync,account_category_id,name " +
                 "     from temp.account_type;");
         db.execSQL("insert into main.account" +
-                "          (id,sync,account_type_id,description,initial_balance,amount_limit,pay_day,expire_month,expire_year,currency_country,icon,color)" +
-                "    select id,sync,account_type_id,description,initial_balance,amount_limit,pay_day,expire_month,expire_year,currency_country,icon,color " +
+                "          (id,sync,account_type_id,name,description,initial_balance,amount_limit,pay_day,expire_month,expire_year,color)" +
+                "    select id,sync,account_type_id,name,description,initial_balance,amount_limit,pay_day,expire_month,expire_year,color " +
                 "      from temp.account;");
         db.execSQL("insert into main.transaction_category" +
-                "          (id,sync,transaction_type_id,name,description,icon,color,system)" +
-                "    select id,sync,transaction_type_id,name,description,icon,color,system " +
+                "          (id,sync,transaction_type_id,name,description,color)" +
+                "    select id,sync,transaction_type_id,name,description,color " +
                 "      from temp.transaction_category;");
 
         db.execSQL("insert into main.transaction_detail" +
@@ -208,10 +198,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
                 "         (id,sync,transaction_type_id,datetime,datetime_create,completed,note,image,location) " +
                 "   select id,sync,transaction_type_id,datetime,datetime_create,completed,note,image,location " +
                 "     from temp.transaction_header;");
-        db.execSQL("insert into main.transaction_type" +
-                "         (id,sync,name,system) " +
-                "   select id,sync,name,system " +
-                "     from temp.transaction_type;");
+
 
     }
 
