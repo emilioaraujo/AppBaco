@@ -1,5 +1,6 @@
-package com.appbaco.appbaco;
+package com.appbaco.appbaco.controller.activity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,8 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.appbaco.appbaco.R;
+import com.appbaco.appbaco.utils.database.AppbacoDatabaseHelper;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static AppbacoDatabaseHelper appbacoDatabaseHelper;
+    public static SQLiteDatabase appbacoDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Abrimos la base de datos
+        appbacoDatabaseHelper = new AppbacoDatabaseHelper(this,"AppBacoDataBase",null,1);
+        appbacoDatabase = appbacoDatabaseHelper.getWritableDatabase();
+        //--
     }
 
     @Override
