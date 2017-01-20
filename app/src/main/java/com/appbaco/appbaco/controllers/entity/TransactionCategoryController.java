@@ -1,9 +1,9 @@
-package com.appbaco.appbaco.controller.activity.entity;
+package com.appbaco.appbaco.controllers.entity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.appbaco.appbaco.model.entity.TransactionCategory;
+import com.appbaco.appbaco.models.entity.TransactionCategory;
 
 import java.util.ArrayList;
 /**

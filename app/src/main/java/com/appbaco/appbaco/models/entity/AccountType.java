@@ -1,4 +1,4 @@
-package com.appbaco.appbaco.model.entity;
+package com.appbaco.appbaco.models.entity;
 
 import java.io.Serializable;
 

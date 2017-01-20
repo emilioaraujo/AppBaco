@@ -1,10 +1,11 @@
-package com.appbaco.appbaco.controller.activity;
+package com.appbaco.appbaco.controllers.activity;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,10 +19,13 @@ import com.appbaco.appbaco.R;
 import com.appbaco.appbaco.utils.database.AppbacoDatabaseHelper;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        CategoryList.OnFragmentInteractionListener {
 
     public static AppbacoDatabaseHelper appbacoDatabaseHelper;
     public static SQLiteDatabase appbacoDatabase;
+
+    public String currentFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +34,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -49,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Abrimos la base de datos
-        appbacoDatabaseHelper = new AppbacoDatabaseHelper(this,"AppBacoDataBase",null,1);
+        appbacoDatabaseHelper = new AppbacoDatabaseHelper(this, "AppBacoDataBase", null, 1);
         appbacoDatabase = appbacoDatabaseHelper.getWritableDatabase();
         //--
     }
@@ -67,7 +63,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -92,24 +88,49 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        //TODO Manejar accion pantalla principal
         if (id == R.id.nav_mainmenu) {
-            // Handle the camera action
-        } else if (id == R.id.nav_count) {
-
+            //TODO Manejar accion account
+        } else if (id == R.id.nav_acount) {
+            //TODO Manejar accion cuentas
         } else if (id == R.id.nav_categories) {
-
+            //TODO Manejar accion categorias
+            replaceFragments(CategoryList.class);
         } else if (id == R.id.nav_transactions) {
-
+            //TODO Manejar accion transacciones
         } else if (id == R.id.nav_search) {
-
+            //TODO Manejar accion consultas
         } else if (id == R.id.nav_config) {
-
-        }else if (id == R.id.nav_about) {
-
+            //TODO Manejar accion configuracion
+        } else if (id == R.id.nav_about) {
+            //TODO Manejar accion sobre app
         }
+
+        return true;
+    }
+
+
+    //Metodo utilizado para abrir fragments. es ejecutado cuando se hace clic en el menu
+    //y llamado desde el metodo onNavigationItemSelected
+    public void replaceFragments(Class fragmentClass) {
+        Fragment fragment = null;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+
+        currentFrame = fragmentClass.getSimpleName();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Log.d("myApp", "onFragmentInteraction");
     }
 }

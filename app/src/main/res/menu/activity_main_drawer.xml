@@ -8,7 +8,7 @@
             android:icon="@drawable/home_outline"
             android:title="Pantalla Principal" />
         <item
-            android:id="@+id/nav_count"
+            android:id="@+id/nav_acount"
             android:icon="@drawable/bank"
             android:title="Cuenta" />
         <item
