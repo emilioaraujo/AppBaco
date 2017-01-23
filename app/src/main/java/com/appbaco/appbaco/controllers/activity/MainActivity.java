@@ -3,6 +3,7 @@ package com.appbaco.appbaco.controllers.activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.transition.Transition;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -20,7 +21,14 @@ import com.appbaco.appbaco.utils.database.AppbacoDatabaseHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        CategoryList.OnFragmentInteractionListener {
+        MainScreen.OnFragmentInteractionListener,
+        CountList.OnFragmentInteractionListener,
+        CategoryList.OnFragmentInteractionListener,
+        TransactionsList.OnFragmentInteractionListener,
+        SearchList.OnFragmentInteractionListener,
+        ConfigList.OnFragmentInteractionListener,
+        AboutList.OnFragmentInteractionListener
+    {
 
     public static AppbacoDatabaseHelper appbacoDatabaseHelper;
     public static SQLiteDatabase appbacoDatabase;
@@ -90,20 +98,26 @@ public class MainActivity extends AppCompatActivity
 
         //TODO Manejar accion pantalla principal
         if (id == R.id.nav_mainmenu) {
-            //TODO Manejar accion account
+            // Manejar accion account
+            replaceFragments(MainScreen.class);
         } else if (id == R.id.nav_acount) {
-            //TODO Manejar accion cuentas
+            // Manejar accion cuentas
+            replaceFragments(CountList.class);
         } else if (id == R.id.nav_categories) {
-            //TODO Manejar accion categorias
+            // Manejar accion categorias
             replaceFragments(CategoryList.class);
         } else if (id == R.id.nav_transactions) {
-            //TODO Manejar accion transacciones
+            // Manejar accion transacciones
+            replaceFragments(TransactionsList.class);
         } else if (id == R.id.nav_search) {
-            //TODO Manejar accion consultas
+            // Manejar accion consultas
+            replaceFragments(SearchList.class);
         } else if (id == R.id.nav_config) {
-            //TODO Manejar accion configuracion
+            // Manejar accion configuracion
+            replaceFragments(ConfigList.class);
         } else if (id == R.id.nav_about) {
-            //TODO Manejar accion sobre app
+            // Manejar accion sobre app
+            replaceFragments(AboutList.class);
         }
 
         return true;
