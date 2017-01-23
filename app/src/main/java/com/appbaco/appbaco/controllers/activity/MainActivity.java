@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Abrimos la base de datos
-        appbacoDatabaseHelper = new AppbacoDatabaseHelper(this, "AppBacoDataBase", null, 4);
+        appbacoDatabaseHelper = new AppbacoDatabaseHelper(this, "AppBacoDataBase", null, 5);
         appbacoDatabase = appbacoDatabaseHelper.getWritableDatabase();
         //--
 

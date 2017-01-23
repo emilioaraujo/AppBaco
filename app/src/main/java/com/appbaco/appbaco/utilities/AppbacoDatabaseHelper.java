@@ -206,7 +206,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void defaultTableRecords(SQLiteDatabase db){
-        db.execSQL("insert into configuration (id,sync,app_pin,monetary_simbol,formato_fecha,formato_hora,app_theme) " +
+        db.execSQL("insert into configuration (id,sync,app_pin,monetary_simbol,date_format,hour_format,app_theme) " +
                 "values (1,0,'','$','yyyy-mm-dd','hh12','Default');");
 
         db.execSQL("insert into account_type (id,name,account_category_id) values (1,'WALLET',1);");
