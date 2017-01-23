@@ -1,14 +1,26 @@
 package com.appbaco.appbaco.controllers.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.appbaco.appbaco.R;
+import com.appbaco.appbaco.controllers.entity.TransactionCategoryController;
+import com.appbaco.appbaco.models.activity.ListCategoryListAdapter;
+import com.appbaco.appbaco.models.entity.TransactionCategory;
+
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +39,17 @@ public class CategoryList extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+    ListView list;
+    View view;
+    private TransactionCategory currentRecord;
+    AlertDialog transactionCategoryDialog;
+
+    private ArrayList<String> stringArrayList;
+    private final TransactionCategoryController entityController = new TransactionCategoryController(MainActivity.appbacoDatabase);
+
+    TabLayout tabs;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,9 +89,12 @@ public class CategoryList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category_list, container, false);
+        view = inflater.inflate(R.layout.fragment_category_list, container, false);
 
+        this.list = (ListView) view.findViewById(R.id.lvCategory);
+        this.configureList();
 
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -110,4 +136,88 @@ public class CategoryList extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+    //METODOS AGREGADOS
+    // Metodo para configurar la lista de categorias
+    public void configureList() {
+        if (MainActivity.appbacoDatabase != null) {
+            //Declaring arrays list to store the data
+            final ArrayList<TransactionCategory> entities;
+            try {
+                entities = entityController.findAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (entities != null) {
+                ListCategoryListAdapter adapter = new ListCategoryListAdapter(getActivity(), this, R.layout.list_category_item, entities);
+                list.setAdapter(adapter);
+
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        currentRecord = entities.get(position);
+                        showRecordDetail(entities.get(position));
+                    }
+                });
+
+            }
+        }
+    }
+
+
+    public void showRecordDetail(TransactionCategory entity) {
+        // TODO: Pending to implementation
+        Toast.makeText(getContext(), "Record Detail not Implemented", Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteRecord(final TransactionCategory entity) {
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Confirm")
+                .setMessage("Do you really want delete: " + entity.getName() + " ?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        try {
+                            entityController.delete(entity);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        configureList();
+                        Toast.makeText(getContext(), "Record Deleted!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
+    public void showCreateUpdateDialog(TransactionCategory entity) {
+        Bundle args = new Bundle();
+        if (entity != null) {
+            args.putInt("id", entity.getId());
+        } else {
+            args.putInt("id", 0);
+        }
+        /*
+        createUpdateDialog = new TagAddDialog();
+        createUpdateDialog.setArguments(args);
+        createUpdateDialog.show(getActivity().getSupportFragmentManager(), "Tag");
+        createUpdateDialog.setActionListener(new TagAddDialog.ActionListener() {
+            @Override
+            public void onSave(Integer id) {
+                configureTagList();
+            }
+
+            @Override
+            public void onCancel() {
+                //Nothing to do there
+            }
+        });
+        */
+    }
+
+    //--
 }
