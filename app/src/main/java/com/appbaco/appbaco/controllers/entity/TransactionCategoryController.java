@@ -61,16 +61,16 @@ public class TransactionCategoryController {
 
 
     public TransactionCategory findById(Integer id)throws Exception {
-        TransactionCategory tag = null;
+        TransactionCategory entity = null;
         try {
             Cursor c = dataBase.rawQuery("select id,sync,transaction_type_id,name,description,color from main.transaction_category where id=" + id, null);
             if (c.moveToFirst()) {
-                tag = new TransactionCategory(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3), c.getString(4), c.getInt(5));
+                entity = new TransactionCategory(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3), c.getString(4), c.getInt(5));
             }
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }
-        return tag;
+        return entity;
     }
 
     public ArrayList<TransactionCategory> findAll() throws Exception {

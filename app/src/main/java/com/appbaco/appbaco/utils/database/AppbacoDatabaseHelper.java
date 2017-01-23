@@ -18,14 +18,15 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
             "                     NOT NULL,\n" +
             "    sync    INTEGER DEFAULT 0,\n" +
             "    app_pin          TEXT,\n" +
+            "    security         INTEGER DEFAULT 0,\n" +
             "    monetary_simbol  TEXT " +
             "                     DEFAULT '$',\n" +
-            "    formato_fecha    TEXT " +
+            "    date_format      TEXT " +
             "                     DEFAULT 'yyyy-mm-dd',\n" +
-            "    formato_hora     TEXT " +
+            "    hourFormat       TEXT " +
             "                     DEFAULT 'hh12',\n" +
             "    app_theme        TEXT " +
-            "                     DEFAULT 'Default'\n" +
+            "                     DEFAULT 'Default',\n" +
             ");\n" +
             "";
 
@@ -135,6 +136,8 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int versionAnterior, int versionNueva) {
+        // Desactivado por el momento hasta que se termine la app
+        /*
         //Se elimina la versión anterior de las tablas temporales
         db.execSQL("DROP TABLE IF EXISTS temp.configuration");
         db.execSQL("DROP TABLE IF EXISTS temp.account_type");
@@ -199,7 +202,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
                 "   select id,sync,transaction_type_id,datetime,datetime_create,completed,note,image,location " +
                 "     from temp.transaction_header;");
 
-
+*/
     }
 
     private void defaultTableRecords(SQLiteDatabase db){

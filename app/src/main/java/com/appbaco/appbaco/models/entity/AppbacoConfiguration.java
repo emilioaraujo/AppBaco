@@ -1,26 +1,29 @@
 package com.appbaco.appbaco.models.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created by SMP on 19/01/2017.
  */
 
-public class Configuration implements Serializable {
+public class AppbacoConfiguration implements Serializable {
     Integer id;
     Integer sync;
-    String appPin;
+    Integer security;
+    Integer appPin;
     String monetarySymbol;
     String dateFormat;
     String hourFormat;
     String appTheme;
 
-    public Configuration() {
+    public AppbacoConfiguration() {
     }
 
-    public Configuration(Integer id, Integer sync, String appPin, String monetarySymbol, String dateFormat, String hourFormat, String appTheme) {
+    public AppbacoConfiguration(Integer id, Integer sync, Integer security, Integer appPin, String monetarySymbol, String dateFormat, String hourFormat, String appTheme) {
         this.id = id;
         this.sync = sync;
+        this.security = security;
         this.appPin = appPin;
         this.monetarySymbol = monetarySymbol;
         this.dateFormat = dateFormat;
@@ -44,11 +47,19 @@ public class Configuration implements Serializable {
         this.sync = sync;
     }
 
-    public String getAppPin() {
+    public Integer getSecurity() {
+        return security;
+    }
+
+    public void setSecurity(Integer security) {
+        this.security = security;
+    }
+
+    public Integer getAppPin() {
         return appPin;
     }
 
-    public void setAppPin(String appPin) {
+    public void setAppPin(Integer appPin) {
         this.appPin = appPin;
     }
 
@@ -88,40 +99,29 @@ public class Configuration implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Configuration that = (Configuration) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (sync != null ? !sync.equals(that.sync) : that.sync != null) return false;
-        if (appPin != null ? !appPin.equals(that.appPin) : that.appPin != null) return false;
-        if (monetarySymbol != null ? !monetarySymbol.equals(that.monetarySymbol) : that.monetarySymbol != null)
-            return false;
-        if (dateFormat != null ? !dateFormat.equals(that.dateFormat) : that.dateFormat != null)
-            return false;
-        if (hourFormat != null ? !hourFormat.equals(that.hourFormat) : that.hourFormat != null)
-            return false;
-        return appTheme != null ? appTheme.equals(that.appTheme) : that.appTheme == null;
-
+        AppbacoConfiguration that = (AppbacoConfiguration) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(sync, that.sync) &&
+                Objects.equals(security, that.security) &&
+                Objects.equals(appPin, that.appPin) &&
+                Objects.equals(monetarySymbol, that.monetarySymbol) &&
+                Objects.equals(dateFormat, that.dateFormat) &&
+                Objects.equals(hourFormat, that.hourFormat) &&
+                Objects.equals(appTheme, that.appTheme);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (sync != null ? sync.hashCode() : 0);
-        result = 31 * result + (appPin != null ? appPin.hashCode() : 0);
-        result = 31 * result + (monetarySymbol != null ? monetarySymbol.hashCode() : 0);
-        result = 31 * result + (dateFormat != null ? dateFormat.hashCode() : 0);
-        result = 31 * result + (hourFormat != null ? hourFormat.hashCode() : 0);
-        result = 31 * result + (appTheme != null ? appTheme.hashCode() : 0);
-        return result;
+        return Objects.hash(id, sync, security, appPin, monetarySymbol, dateFormat, hourFormat, appTheme);
     }
 
     @Override
     public String toString() {
-        return "Configuration{" +
+        return "AppbacoConfiguration{" +
                 "id=" + id +
                 ", sync=" + sync +
-                ", appPin='" + appPin + '\'' +
+                ", security=" + security +
+                ", appPin=" + appPin +
                 ", monetarySymbol='" + monetarySymbol + '\'' +
                 ", dateFormat='" + dateFormat + '\'' +
                 ", hourFormat='" + hourFormat + '\'' +

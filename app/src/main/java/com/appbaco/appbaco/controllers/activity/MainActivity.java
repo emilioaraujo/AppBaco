@@ -3,7 +3,6 @@ package com.appbaco.appbaco.controllers.activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.transition.Transition;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -22,11 +21,11 @@ import com.appbaco.appbaco.utils.database.AppbacoDatabaseHelper;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MainScreen.OnFragmentInteractionListener,
-        CountList.OnFragmentInteractionListener,
+        AccountList.OnFragmentInteractionListener,
         CategoryList.OnFragmentInteractionListener,
         TransactionsList.OnFragmentInteractionListener,
         SearchList.OnFragmentInteractionListener,
-        ConfigList.OnFragmentInteractionListener,
+        Configuration.OnFragmentInteractionListener,
         AboutList.OnFragmentInteractionListener
     {
 
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Abrimos la base de datos
-        appbacoDatabaseHelper = new AppbacoDatabaseHelper(this, "AppBacoDataBase", null, 1);
+        appbacoDatabaseHelper = new AppbacoDatabaseHelper(this, "AppBacoDataBase", null, 2);
         appbacoDatabase = appbacoDatabaseHelper.getWritableDatabase();
         //--
     }
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity
             replaceFragments(MainScreen.class);
         } else if (id == R.id.nav_acount) {
             // Manejar accion cuentas
-            replaceFragments(CountList.class);
+            replaceFragments(AccountList.class);
         } else if (id == R.id.nav_categories) {
             // Manejar accion categorias
             replaceFragments(CategoryList.class);
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity
             replaceFragments(SearchList.class);
         } else if (id == R.id.nav_config) {
             // Manejar accion configuracion
-            replaceFragments(ConfigList.class);
+            replaceFragments(Configuration.class);
         } else if (id == R.id.nav_about) {
             // Manejar accion sobre app
             replaceFragments(AboutList.class);
