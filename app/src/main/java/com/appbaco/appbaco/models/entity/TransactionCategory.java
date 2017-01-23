@@ -15,6 +15,12 @@ public class TransactionCategory implements Serializable {
     Integer color;
 
     public TransactionCategory() {
+        this.id = 0;
+        this.sync = 0;
+        this.transactionTypeId = 0;
+        this.name = "";
+        this.description = "";
+        this.color = 0xffe57373;
     }
 
     public TransactionCategory(Integer id, Integer sync, Integer transactionTypeId, String name, String description, Integer color) {

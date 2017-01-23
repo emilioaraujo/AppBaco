@@ -1,4 +1,4 @@
-package com.appbaco.appbaco.utils.database;
+package com.appbaco.appbaco.utilities;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -16,7 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.appbaco.appbaco.R;
-import com.appbaco.appbaco.utils.database.AppbacoDatabaseHelper;
+import com.appbaco.appbaco.utilities.AppbacoDatabaseHelper;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -26,21 +28,33 @@ public class MainActivity extends AppCompatActivity
         TransactionsList.OnFragmentInteractionListener,
         SearchList.OnFragmentInteractionListener,
         Configuration.OnFragmentInteractionListener,
-        AboutList.OnFragmentInteractionListener
-    {
+        AboutList.OnFragmentInteractionListener {
 
     public static AppbacoDatabaseHelper appbacoDatabaseHelper;
     public static SQLiteDatabase appbacoDatabase;
-
+    public static Toolbar toolbar;
+    public static ArrayList<Integer> colors = new ArrayList<>();
     public String currentFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (savedInstanceState == null) {
+            Fragment fragment;
+            Class fragmentClass = MainScreen.class;
+            currentFrame = "MainFragment";
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -55,6 +69,8 @@ public class MainActivity extends AppCompatActivity
         appbacoDatabaseHelper = new AppbacoDatabaseHelper(this, "AppBacoDataBase", null, 2);
         appbacoDatabase = appbacoDatabaseHelper.getWritableDatabase();
         //--
+
+        this.setColors();
     }
 
     @Override
@@ -65,6 +81,33 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void setColors() {
+        if (colors == null) {
+            colors = new ArrayList<>();
+        }
+        colors.add(0xffe57373);
+        colors.add(0xfff06292);
+        colors.add(0xffba68c8);
+        colors.add(0xff9575cd);
+        colors.add(0xff7986cb);
+        colors.add(0xff64b5f6);
+        colors.add(0xff4fc3f7);
+        colors.add(0xff4dd0e1);
+        colors.add(0xff4db6ac);
+        colors.add(0xff81c784);
+        colors.add(0xffaed581);
+        colors.add(0xffff8a65);
+        colors.add(0xffd4e157);
+        colors.add(0xffffd54f);
+        colors.add(0xffffb74d);
+        colors.add(0xffa1887f);
+        colors.add(0xff90a4ae);
+    }
+
+    public static ArrayList<Integer> getColors() {
+        return colors;
     }
 
     @Override

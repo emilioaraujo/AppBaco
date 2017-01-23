@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -40,9 +42,13 @@ public class CategoryList extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    Integer transactionTypeId = 2;
 
     ListView list;
     View view;
+
+    DialogCategory createUpdateDialog;
+
     private TransactionCategory currentRecord;
     AlertDialog transactionCategoryDialog;
 
@@ -50,9 +56,9 @@ public class CategoryList extends Fragment {
     private final TransactionCategoryController entityController = new TransactionCategoryController(MainActivity.appbacoDatabase);
 
     TabLayout tabs;
+    AppBarLayout appBarLayout;
 
-    private OnFragmentInteractionListener mListener;
-
+    private CategoryList.OnFragmentInteractionListener mListener;
     public CategoryList() {
         // Required empty public constructor
     }
@@ -78,7 +84,7 @@ public class CategoryList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getActivity().setTitle("Category List");
+        this.getActivity().setTitle("DialogCategory List");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -91,7 +97,46 @@ public class CategoryList extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_category_list, container, false);
 
+        tabs = (TabLayout) view.findViewById(R.id.tabs);
+        tabs.setOnTabSelectedListener(
+                new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        transactionTypeId = tab.getPosition()+2;
+
+                        if(tab.getPosition()==0) {
+                            //toolbar color
+                            //MainActivity.toolbar.setBackgroundColor(getResources().getColor(R.color.colorIncome));
+                            //navbar color
+                            //getActivity().getWindow().setNavigationBarColor(getResources().getColor(R.color.colorIncome));
+                        }else{
+                            //toolbar color
+                            //MainActivity.toolbar.setBackgroundColor(getResources().getColor(R.color.colorExpense));
+                            //navbar color
+                            //getActivity().getWindow().setNavigationBarColor(getResources().getColor(R.color.colorExpense));
+                        }
+                        configureList();
+                    }
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                        //Not implemented
+                    }
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                        //Not implemented
+                    }
+                }
+        );
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fabAddCategory);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentRecord = null;
+                showCreateUpdateDialog(currentRecord);
+            }
+        });
         this.list = (ListView) view.findViewById(R.id.lvCategory);
+        appBarLayout = (AppBarLayout) view.findViewById(R.id.appbar);
         this.configureList();
 
         return view;
@@ -145,7 +190,7 @@ public class CategoryList extends Fragment {
             //Declaring arrays list to store the data
             final ArrayList<TransactionCategory> entities;
             try {
-                entities = entityController.findAll();
+                entities = entityController.findAll(transactionTypeId);
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -201,22 +246,23 @@ public class CategoryList extends Fragment {
         } else {
             args.putInt("id", 0);
         }
-        /*
-        createUpdateDialog = new TagAddDialog();
+        args.putInt("transaction_type_id", transactionTypeId);
+
+        createUpdateDialog = new DialogCategory();
         createUpdateDialog.setArguments(args);
-        createUpdateDialog.show(getActivity().getSupportFragmentManager(), "Tag");
-        createUpdateDialog.setActionListener(new TagAddDialog.ActionListener() {
+        createUpdateDialog.show(getActivity().getSupportFragmentManager(), "Category");
+        createUpdateDialog.setActionListener(new DialogCategory.ActionListener() {
+
             @Override
             public void onSave(Integer id) {
-                configureTagList();
+                configureList();
             }
 
             @Override
             public void onCancel() {
-                //Nothing to do there
+                // data que hacer
             }
         });
-        */
     }
 
     //--

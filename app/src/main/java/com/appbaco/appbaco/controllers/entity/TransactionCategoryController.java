@@ -73,10 +73,12 @@ public class TransactionCategoryController {
         return entity;
     }
 
-    public ArrayList<TransactionCategory> findAll() throws Exception {
+    public ArrayList<TransactionCategory> findAll(Integer transactionTypeId) throws Exception {
         ArrayList<TransactionCategory> entities = new ArrayList<TransactionCategory>();
         try {
-            Cursor c = dataBase.rawQuery("select id,sync,transaction_type_id,name,description,color from main.transaction_category order by id desc", null);
+            Cursor c = dataBase.rawQuery("select id,sync,transaction_type_id,name,description,color " +
+                    "from main.transaction_category " +
+                    "where transaction_type_id="+transactionTypeId+" order by id desc", null);
             if (c.moveToFirst()) {
                 do {
                     entities.add(new TransactionCategory(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3), c.getString(4), c.getInt(5)));
