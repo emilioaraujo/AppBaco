@@ -23,7 +23,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
             "                     DEFAULT '$',\n" +
             "    date_format      TEXT " +
             "                     DEFAULT 'yyyy-mm-dd',\n" +
-            "    hourFormat       TEXT " +
+            "    hour_format       TEXT " +
             "                     DEFAULT 'hh12',\n" +
             "    app_theme        TEXT " +
             "                     DEFAULT 'Default'\n" +
