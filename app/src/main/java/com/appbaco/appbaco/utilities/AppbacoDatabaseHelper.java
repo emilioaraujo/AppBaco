@@ -17,7 +17,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
             "                     UNIQUE\n" +
             "                     NOT NULL,\n" +
             "    sync    INTEGER DEFAULT 0,\n" +
-            "    app_pin          TEXT,\n" +
+            "    app_pin          TEXT DEFAULT '',\n" +
             "    security         INTEGER DEFAULT 0,\n" +
             "    monetary_simbol  TEXT " +
             "                     DEFAULT '$',\n" +
@@ -26,7 +26,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
             "    hourFormat       TEXT " +
             "                     DEFAULT 'hh12',\n" +
             "    app_theme        TEXT " +
-            "                     DEFAULT 'Default',\n" +
+            "                     DEFAULT 'Default'\n" +
             ");\n" +
             "";
 
@@ -137,7 +137,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int versionAnterior, int versionNueva) {
         // Desactivado por el momento hasta que se termine la app
-        /*
+
         //Se elimina la versión anterior de las tablas temporales
         db.execSQL("DROP TABLE IF EXISTS temp.configuration");
         db.execSQL("DROP TABLE IF EXISTS temp.account_type");
@@ -173,7 +173,7 @@ public class AppbacoDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(sqlTransactionDetailCreate);
         db.execSQL(sqlTransactionHeaderCreate);
 
-
+ /*
         //Se pasan los valores de las tablas temporales a las nuevas tablas
         db.execSQL("insert into main.configuration " +
                 "         (id,sync,app_pin,monetary_simbol,formato_fecha,formato_hora,app_theme) " +
