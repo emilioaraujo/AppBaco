@@ -40,30 +40,30 @@ public class ListAccountAdapter<T extends Account> extends ArrayAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = activity.getLayoutInflater();
-        convertView = inflater.inflate(R.layout.list_category_item, null, true);
+        convertView = inflater.inflate(R.layout.list_account_item, null, true);
 
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
         TextView title = (TextView) convertView.findViewById(R.id.title);
         TextView description = (TextView) convertView.findViewById(R.id.lvDescription);
+        TextView description2 = (TextView) convertView.findViewById(R.id.lvDescription2);
         final ImageView itemActions = (ImageView) convertView.findViewById(R.id.item_actions);
 
-        //get first and second letter of each String item
-        String letters;
-
-        if (entityList.get(position).getName().contains(" ")) {
-            letters = String.valueOf(entityList.get(position).getName().charAt(0)).toUpperCase()
-                    + String.valueOf(entityList.get(position).getName().charAt(entityList.get(position).getName().toString().indexOf(' ') + 1)).toUpperCase();
-        } else {
-            letters = String.valueOf(entityList.get(position).getName().charAt(0)).toUpperCase()
-                    + String.valueOf(entityList.get(position).getName().charAt(1)).toUpperCase();
-        }
-        //int color = colorId.get(position);
-        TextDrawable drawable = TextDrawable.builder().buildRound(letters, entityList.get(position).getColor()); // radius in px
 
         title.setText(entityList.get(position).getName());
         description.setText(entityList.get(position).getDescription());
-        image.setImageDrawable(drawable);
-
+        description2.setText("Saldo: 0.00");
+        if(entityList.get(position).getAccountTypeId()==1) {
+            image.setImageResource(R.drawable.wallet);
+        }
+        if(entityList.get(position).getAccountTypeId()==2) {
+            image.setImageResource(R.drawable.currency_usd);
+        }
+        if(entityList.get(position).getAccountTypeId()==3) {
+            image.setImageResource(R.drawable.cash_multiple);
+        }
+        if(entityList.get(position).getAccountTypeId()==4) {
+            image.setImageResource(R.drawable.credit_card);
+        }
         //---
         itemActions.setOnClickListener(new View.OnClickListener() {
             @Override

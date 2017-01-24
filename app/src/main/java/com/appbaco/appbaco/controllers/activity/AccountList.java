@@ -93,9 +93,9 @@ public class AccountList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_category_list, container, false);
+        view = inflater.inflate(R.layout.fragment_account_list, container, false);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fabAddCategory);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fabAddAccount);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +103,7 @@ public class AccountList extends Fragment {
                 showCreateUpdateDialog(currentRecord);
             }
         });
-        this.list = (ListView) view.findViewById(R.id.lvCategory);
+        this.list = (ListView) view.findViewById(R.id.lvAccounts);
         appBarLayout = (AppBarLayout) view.findViewById(R.id.appbar);
         this.configureList();
 
