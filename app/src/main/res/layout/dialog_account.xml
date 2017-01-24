@@ -35,8 +35,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Category name"
-            android:id="@+id/txtCategoryName" />
+            android:hint="Account name"
+            android:id="@+id/txtAccountName" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -46,8 +46,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Category Description"
-            android:id="@+id/txtCategoryDescription" />
+            android:hint="Account Description"
+            android:id="@+id/txtAccountDescription" />
     </android.support.design.widget.TextInputLayout>
 
 

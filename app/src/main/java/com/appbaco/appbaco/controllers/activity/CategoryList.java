@@ -84,7 +84,7 @@ public class CategoryList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getActivity().setTitle("DialogCategory List");
+        this.getActivity().setTitle("Category List");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -260,7 +260,7 @@ public class CategoryList extends Fragment {
 
             @Override
             public void onCancel() {
-                // data que hacer
+                // nada que hacer
             }
         });
     }

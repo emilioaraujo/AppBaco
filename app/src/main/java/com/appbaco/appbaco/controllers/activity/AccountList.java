@@ -44,7 +44,7 @@ public class AccountList extends Fragment {
     ListView list;
     View view;
 
-    DialogCategory createUpdateDialog;
+    DialogAccount createUpdateDialog;
 
     private Account currentRecord;
     AlertDialog accountDialog;
@@ -82,7 +82,7 @@ public class AccountList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getActivity().setTitle("Account");
+        this.getActivity().setTitle("Account List");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -206,7 +206,7 @@ public class AccountList extends Fragment {
     }
 
     public void showCreateUpdateDialog(Account entity) {
-        /*
+
         Bundle args = new Bundle();
         if (entity != null) {
             args.putInt("id", entity.getId());
@@ -226,10 +226,10 @@ public class AccountList extends Fragment {
 
             @Override
             public void onCancel() {
-                // data que hacer
+                // nada que hacer
             }
         });
-        */
+
     }
 
     //--

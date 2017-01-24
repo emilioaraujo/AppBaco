@@ -20,6 +20,16 @@ public class Account implements Serializable {
     Integer color;
 
     public Account() {
+         this.sync = sync;
+        this.accountTypeId = 1;
+        this.name = "";
+        this.description = "";
+        this.initialBalance = 0.00;
+        this.amountLimit = 0.00;
+        this.dayPay = 0;
+        this.expireMonth = 0;
+        this.expireYear = 0;
+        this.color = 0xffe57373;
     }
 
     public Account(Integer id, Integer sync, Integer accountTypeId, String name, String description, Double initialBalance, Double amountLimit, Integer dayPay, Integer expireDay, Integer expireYear, Integer color) {
