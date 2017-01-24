@@ -12,10 +12,9 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.appbaco.appbaco.controllers.activity.CategoryList;
-import com.appbaco.appbaco.models.entity.TransactionCategory;
 import com.appbaco.appbaco.R;
-
+import com.appbaco.appbaco.controllers.activity.AccountList;
+import com.appbaco.appbaco.models.entity.Account;
 
 
 import java.util.List;
@@ -24,13 +23,13 @@ import java.util.List;
  * Created by MARAUJO on 12/28/2016.
  */
 
-public class ListCategoryListAdapter<T extends TransactionCategory> extends ArrayAdapter {
+public class ListAccountAdapter<T extends Account> extends ArrayAdapter {
 
     private Activity activity;
-    private List<TransactionCategory> entityList;
+    private List<Account> entityList;
     private Fragment callerFragment;
 
-    public ListCategoryListAdapter(Activity context, Fragment callerFragment, int resource, List<TransactionCategory> entities) {
+    public ListAccountAdapter(Activity context, Fragment callerFragment, int resource, List<Account> entities) {
         super(context, resource, entities);
         this.activity = context;
         this.entityList=entities;
@@ -74,7 +73,7 @@ public class ListCategoryListAdapter<T extends TransactionCategory> extends Arra
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         int i = item.getItemId();
-                        CategoryList fragment = (CategoryList) callerFragment;
+                        AccountList fragment = (AccountList) callerFragment;
 
                         if (i == R.id.action_show_details) {
                             fragment.showRecordDetail(entityList.get(position));
