@@ -8,4 +8,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="formatos_moneda">
+        <item name="dolar">Dolar</item>
+    </string-array>
+    <string-array name="formatos_fecha">
+        <item name="dd/mm/aa">Dolar</item>
+    </string-array>
+    <string-array name="apariencia">
+        <item name="bonito">Dolar</item>
+    </string-array>
 </resources>
