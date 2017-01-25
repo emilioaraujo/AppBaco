@@ -17,4 +17,11 @@
     <string-array name="apariencia">
         <item name="bonito">Dolar</item>
     </string-array>
+    <string-array name="account_type">
+        <item>Select</item>
+        <item>Wallet</item>
+        <item>Saving</item>
+        <item>Loan</item>
+        <item>Credit Card</item>
+    </string-array>
 </resources>
