@@ -1,5 +1,7 @@
 package com.appbaco.appbaco.controllers.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -79,12 +81,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm")
+                .setMessage("Do you really want to close AppBaco?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        MainActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
     }
 
     private void setColors() {

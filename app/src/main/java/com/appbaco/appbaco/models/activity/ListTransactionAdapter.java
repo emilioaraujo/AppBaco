@@ -100,7 +100,7 @@ public class ListTransactionAdapter<T extends TransactionHeader> extends ArrayAd
                             return true;
                         }
                         if (i == R.id.action_edit) {
-                            fragment.showCreateUpdateDialog(entityList.get(position));
+                            fragment.showCreateUpdateDialog(entityList.get(position),0);
                             return true;
                         }
                         if (i == R.id.action_delete) {

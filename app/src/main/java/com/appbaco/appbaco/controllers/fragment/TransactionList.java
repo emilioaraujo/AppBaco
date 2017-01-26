@@ -27,6 +27,7 @@ import com.appbaco.appbaco.models.activity.ListTransactionAdapter;
 import com.appbaco.appbaco.models.entity.Account;
 import com.appbaco.appbaco.models.entity.TransactionDetail;
 import com.appbaco.appbaco.models.entity.TransactionHeader;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
 
@@ -53,16 +54,14 @@ public class TransactionList extends Fragment {
 
     DialogTransaction createUpdateDialog;
 
-    private TransactionHeader currentHeader;
-    private ArrayList<TransactionDetail> currentDetail;
-    AlertDialog accountDialog;
+    private TransactionHeader currentRecord;
 
     private ArrayList<String> stringArrayList;
     private final TransactionHeaderController entityController = new TransactionHeaderController(MainActivity.appbacoDatabase);
 
-    TabLayout tabs;
-    AppBarLayout appBarLayout;
 
+    AppBarLayout appBarLayout;
+    FloatingActionsMenu fabMenu;
     private OnFragmentInteractionListener mListener;
 
     public TransactionList() {
@@ -103,13 +102,35 @@ public class TransactionList extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_transaction_list, container, false);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fabAddTransaction);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabMenu = (FloatingActionsMenu) view.findViewById(R.id.fabAddTransaction);
+        com.getbase.floatingactionbutton.FloatingActionButton fabActionIncome = (com.getbase.floatingactionbutton.FloatingActionButton) view.findViewById(R.id.fabActionIncome);
+        fabActionIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentHeader = null;
-                currentDetail = null;
-                showCreateUpdateDialog(currentHeader);
+                System.out.println("fabActionIncome");
+                currentRecord = null;
+                showCreateUpdateDialog(currentRecord,2);
+                fabMenu.collapse();
+            }
+        });
+        com.getbase.floatingactionbutton.FloatingActionButton fabActionExpense = (com.getbase.floatingactionbutton.FloatingActionButton) view.findViewById(R.id.fabActionExpense);
+        fabActionExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("fabActionExpense");
+                currentRecord = null;
+                showCreateUpdateDialog(currentRecord,3);
+                fabMenu.collapse();
+            }
+        });
+        com.getbase.floatingactionbutton.FloatingActionButton fabActionTransfer= (com.getbase.floatingactionbutton.FloatingActionButton) view.findViewById(R.id.fabActionTransfer);
+        fabActionTransfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("fabActionTransfer");
+                currentRecord = null;
+                showCreateUpdateDialog(currentRecord,1);
+                fabMenu.collapse();
             }
         });
         this.list = (ListView) view.findViewById(R.id.lvTransactions);
@@ -183,7 +204,7 @@ public class TransactionList extends Fragment {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        currentHeader = entities.get(position);
+                        currentRecord = entities.get(position);
                         showRecordDetail(entities.get(position));
                     }
                 });
@@ -224,19 +245,21 @@ public class TransactionList extends Fragment {
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
-    public void showCreateUpdateDialog(TransactionHeader entity) {
-/*
+    public void showCreateUpdateDialog(TransactionHeader entity,Integer transactionTypeId) {
+
         Bundle args = new Bundle();
         if (entity != null) {
             args.putInt("id", entity.getId());
+            args.putInt("transaction_type_id", entity.getTransactionTypeId());
         } else {
             args.putInt("id", 0);
+            args.putInt("transaction_type_id", transactionTypeId);
         }
 
-        createUpdateDialog = new DialogAccount();
+        createUpdateDialog = new DialogTransaction();
         createUpdateDialog.setArguments(args);
         createUpdateDialog.show(getActivity().getSupportFragmentManager(), "Account");
-        createUpdateDialog.setActionListener(new DialogAccount.ActionListener() {
+        createUpdateDialog.setActionListener(new DialogTransaction.ActionListener() {
 
             @Override
             public void onSave(Integer id) {
@@ -252,7 +275,7 @@ public class TransactionList extends Fragment {
                 // nada que hacer
             }
         });
-*/
+
     }
 
     //--

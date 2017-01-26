@@ -3,12 +3,21 @@ package com.appbaco.appbaco.controllers.activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.appbaco.appbaco.R;
+import com.appbaco.appbaco.controllers.entity.TransactionHeaderController;
+import com.appbaco.appbaco.controllers.fragment.DialogTransaction;
+import com.appbaco.appbaco.models.entity.TransactionHeader;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +36,11 @@ public class MainScreen extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    DialogTransaction createUpdateDialog;
 
+    private TransactionHeader currentRecord;
+
+    private final TransactionHeaderController entityController = new TransactionHeaderController(MainActivity.appbacoDatabase);
     private OnFragmentInteractionListener mListener;
 
     public MainScreen() {
@@ -55,7 +68,7 @@ public class MainScreen extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getActivity().setTitle("Main");
+        this.getActivity().setTitle("Home");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -66,7 +79,44 @@ public class MainScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_screen, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_screen, container, false);
+
+        final FloatingActionsMenu fabMenu = (FloatingActionsMenu) view.findViewById(R.id.fabAddTransactionMenu);
+
+        FloatingActionButton fabActionIncome = (FloatingActionButton) view.findViewById(R.id.fabActionIncome);
+        fabActionIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("fabActionIncome");
+                currentRecord = null;
+                showCreateUpdateDialog(currentRecord,2);
+                fabMenu.collapse();
+            }
+        });
+        FloatingActionButton fabActionExpense = (FloatingActionButton) view.findViewById(R.id.fabActionExpense);
+        fabActionExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("fabActionExpense");
+                currentRecord = null;
+                showCreateUpdateDialog(currentRecord,3);
+                fabMenu.collapse();
+            }
+        });
+        FloatingActionButton fabActionTransfer= (FloatingActionButton) view.findViewById(R.id.fabActionTransfer);
+        fabActionTransfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("fabActionTransfer");
+                currentRecord = null;
+                showCreateUpdateDialog(currentRecord,1);
+                fabMenu.collapse();
+            }
+        });
+        //Find the +1 button
+        // mPlusOneButton = (PlusOneButton) view.findViewById(R.id.plus_one_button);
+        MainActivity.toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -91,6 +141,39 @@ public class MainScreen extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void showCreateUpdateDialog(TransactionHeader entity, Integer transactionTypeId) {
+
+        Bundle args = new Bundle();
+        if (entity != null) {
+            args.putInt("id", entity.getId());
+            args.putInt("transaction_type_id", entity.getTransactionTypeId());
+        } else {
+            args.putInt("id", 0);
+            args.putInt("transaction_type_id", transactionTypeId);
+        }
+
+        createUpdateDialog = new DialogTransaction();
+        createUpdateDialog.setArguments(args);
+        createUpdateDialog.show(getActivity().getSupportFragmentManager(), "Account");
+        createUpdateDialog.setActionListener(new DialogTransaction.ActionListener() {
+
+            @Override
+            public void onSave(Integer id) {
+
+                Snackbar snackbar = Snackbar.make(getView(), "Success: Record Saved!", Snackbar.LENGTH_LONG).setAction("Action", null);
+                View sbView = snackbar.getView();
+                sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBackgrounSuccess));
+                snackbar.show();
+            }
+
+            @Override
+            public void onCancel() {
+                // nada que hacer
+            }
+        });
+
     }
 
     /**
