@@ -118,13 +118,13 @@
                 android:text="Apariencia:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView12"
+                android:id="@+id/textViewx"
                 android:layout_weight="1" />
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinner2"
+                android:id="@+id/spinnerx"
                 android:layout_weight="1" />
         </LinearLayout>
 

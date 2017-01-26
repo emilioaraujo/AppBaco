@@ -15,6 +15,12 @@ public class TransactionDetail implements Serializable {
     Double amount;
 
     public TransactionDetail() {
+        this.id = 0;
+        this.sync = 0;
+        this.transactionId = 0;
+        this.accountId = 0;
+        this.transactionCategoryId = 0;
+        this.amount = 0D;
     }
 
     public TransactionDetail(Integer id, Integer sync, Integer transactionId, Integer accountId, Integer transactionCategoryId, Double amount) {

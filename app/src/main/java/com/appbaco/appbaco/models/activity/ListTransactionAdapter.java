@@ -13,9 +13,14 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.appbaco.appbaco.R;
+import com.appbaco.appbaco.controllers.activity.MainActivity;
+import com.appbaco.appbaco.controllers.entity.AccountController;
 import com.appbaco.appbaco.controllers.fragment.TransactionList;
+import com.appbaco.appbaco.models.entity.Account;
+import com.appbaco.appbaco.models.entity.TransactionDetail;
 import com.appbaco.appbaco.models.entity.TransactionHeader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,13 +32,15 @@ public class ListTransactionAdapter<T extends TransactionHeader> extends ArrayAd
     private Activity activity;
     private List<TransactionHeader> entityList;
     private Fragment callerFragment;
+    private AccountController accountController;
 
     public ListTransactionAdapter(Activity context, Fragment callerFragment, int resource, List<TransactionHeader> entities) {
         super(context, resource, entities);
         this.activity = context;
-        this.entityList=entities;
+        this.entityList = entities;
 
         this.callerFragment = callerFragment;
+        this.accountController = new AccountController(MainActivity.appbacoDatabase);
     }
 
     @Override
@@ -48,19 +55,33 @@ public class ListTransactionAdapter<T extends TransactionHeader> extends ArrayAd
         final ImageView itemActions = (ImageView) convertView.findViewById(R.id.item_actions);
 
 
-        title.setText(entityList.get(position).getId().toString());
-        description.setText(entityList.get(position).getId().toString());
-        Double balance=20.00;
-        description2.setText("Actual Balance: "+balance);
+        try {
+            ArrayList<TransactionDetail> array =entityList.get(position).getTransactionDetails();
+            Account account = this.accountController.findById(array.get(0).getAccountId());
+            title.setText(account.getName());
+            description2.setText("Amount: " + array.get(0).getAmount());
+            if (entityList.get(position).getTransactionTypeId() == 1) {
+                title.setText("" +
+                        this.accountController.findById(entityList.get(position).getTransactionDetails().get(0).getId()).getName()
+                        + " -> " +
+                        this.accountController.findById(entityList.get(position).getTransactionDetails().get(1).getId()).getName()
+                );
+            }
+        } catch (Exception ex) {
 
-        if(entityList.get(position).getTransactionTypeId()==1) {
-            image.setImageResource(R.drawable.wallet);
         }
-        if(entityList.get(position).getTransactionTypeId()==2) {
-            image.setImageResource(R.drawable.currency_usd);
+        description.setText(entityList.get(position).getConcept());
+
+
+
+        if (entityList.get(position).getTransactionTypeId() == 1) {
+            image.setImageResource(R.drawable.shuffle_variant);
         }
-        if(entityList.get(position).getTransactionTypeId()==3) {
-            image.setImageResource(R.drawable.cash_multiple);
+        if (entityList.get(position).getTransactionTypeId() == 2) {
+            image.setImageResource(R.drawable.arrow_down_bold);
+        }
+        if (entityList.get(position).getTransactionTypeId() == 3) {
+            image.setImageResource(R.drawable.arrow_up_bold);
         }
 
         //---

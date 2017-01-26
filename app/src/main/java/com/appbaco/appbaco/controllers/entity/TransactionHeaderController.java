@@ -3,7 +3,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.appbaco.appbaco.models.entity.TransactionDetail;
 import com.appbaco.appbaco.models.entity.TransactionHeader;
 
 import java.util.ArrayList;
@@ -15,10 +14,10 @@ import java.util.Date;
 
 public class TransactionHeaderController {
     private SQLiteDatabase dataBase;
-
+private TransactionDetailController transactionDetailController;
     public TransactionHeaderController(SQLiteDatabase dataBase) {
         this.dataBase = dataBase;
-
+        this.transactionDetailController= new TransactionDetailController(this.dataBase);
     }
 
     private ContentValues getContentValues(TransactionHeader entity) {
@@ -72,7 +71,17 @@ public class TransactionHeaderController {
         try {
             Cursor c = dataBase.rawQuery("select id,sync,transaction_type_id,datetime_create,datetime,completed,concept,image,location from main.transaction_header where id=" + id, null);
             if (c.moveToFirst()) {
-                entity = new TransactionHeader(c.getInt(0), c.getInt(1), c.getInt(2), new Date(c.getString(3)), new Date(c.getString(4)), c.getInt(5),c.getString(6),c.getString(7),c.getString(8), new ArrayList<TransactionDetail>());
+                entity = new TransactionHeader(
+                        c.getInt(0),
+                        c.getInt(1),
+                        c.getInt(2),
+                        new Date(c.getString(3)),
+                        new Date(c.getString(4)),
+                        c.getInt(5),
+                        c.getString(6),
+                        c.getString(7),
+                        c.getString(8),
+                        transactionDetailController.findByTransactionId(c.getInt(0)));
             }
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
@@ -86,7 +95,17 @@ public class TransactionHeaderController {
             Cursor c = dataBase.rawQuery("select id,sync,transaction_type_id,datetime_create,datetime,completed,concept,image,location from main.transaction_header order by id desc", null);
             if (c.moveToFirst()) {
                 do {
-                    entities.add(new TransactionHeader(c.getInt(0), c.getInt(1), c.getInt(2), new Date(), new Date(), c.getInt(5),c.getString(6),c.getString(7),c.getString(8),new ArrayList<TransactionDetail>()));
+                    entities.add(new TransactionHeader(
+                            c.getInt(0),
+                            c.getInt(1),
+                            c.getInt(2),
+                            new Date(),
+                            new Date(),
+                            c.getInt(5),
+                            c.getString(6),
+                            c.getString(7),
+                            c.getString(8),
+                            transactionDetailController.findByTransactionId(c.getInt(0))));
                 } while (c.moveToNext());
             }
         } catch (Exception ex) {
