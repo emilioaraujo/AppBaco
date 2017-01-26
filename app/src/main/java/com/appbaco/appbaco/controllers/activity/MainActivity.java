@@ -1,5 +1,6 @@
 package com.appbaco.appbaco.controllers.activity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -159,7 +160,10 @@ public class MainActivity extends AppCompatActivity
             replaceFragments(SearchList.class);
         } else if (id == R.id.nav_config) {
             // Manejar accion configuracion
-            replaceFragments(Configuration.class);
+            // replaceFragments(Configuration.class);
+            Intent i=new Intent(getApplicationContext(),SettingsActivity.class);
+            startActivity(i);
+
         } else if (id == R.id.nav_about) {
             // Manejar accion sobre app
             replaceFragments(AboutList.class);
