@@ -16,6 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.appbaco.appbaco.R;
+import com.appbaco.appbaco.controllers.fragment.AccountList;
+import com.appbaco.appbaco.controllers.fragment.CategoryList;
+import com.appbaco.appbaco.controllers.fragment.TransactionList;
 import com.appbaco.appbaco.utilities.AppbacoDatabaseHelper;
 
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity
         MainScreen.OnFragmentInteractionListener,
         AccountList.OnFragmentInteractionListener,
         CategoryList.OnFragmentInteractionListener,
-        TransactionsList.OnFragmentInteractionListener,
+        TransactionList.OnFragmentInteractionListener,
         SearchList.OnFragmentInteractionListener,
         Configuration.OnFragmentInteractionListener,
         AboutList.OnFragmentInteractionListener {
@@ -150,7 +153,7 @@ public class MainActivity extends AppCompatActivity
             replaceFragments(CategoryList.class);
         } else if (id == R.id.nav_transactions) {
             // Manejar accion transacciones
-            replaceFragments(TransactionsList.class);
+            replaceFragments(TransactionList.class);
         } else if (id == R.id.nav_search) {
             // Manejar accion consultas
             replaceFragments(SearchList.class);

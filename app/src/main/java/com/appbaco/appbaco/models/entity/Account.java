@@ -24,8 +24,8 @@ public class Account implements Serializable {
         this.accountTypeId = 1;
         this.name = "";
         this.description = "";
-        this.initialBalance = 0.00;
-        this.amountLimit = 0.00;
+        this.initialBalance = 0D;
+        this.amountLimit = 0D;
         this.dayPay = 0;
         this.expireMonth = 0;
         this.expireYear = 0;

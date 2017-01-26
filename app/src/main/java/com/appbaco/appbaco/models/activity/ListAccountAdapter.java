@@ -1,6 +1,7 @@
 package com.appbaco.appbaco.models.activity;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -11,9 +12,8 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.appbaco.appbaco.R;
-import com.appbaco.appbaco.controllers.activity.AccountList;
+import com.appbaco.appbaco.controllers.fragment.AccountList;
 import com.appbaco.appbaco.models.entity.Account;
 
 
@@ -51,7 +51,22 @@ public class ListAccountAdapter<T extends Account> extends ArrayAdapter {
 
         title.setText(entityList.get(position).getName());
         description.setText(entityList.get(position).getDescription());
-        description2.setText("Saldo: 0.00");
+        Double balance=20.00;
+        description2.setText("Actual Balance: "+balance);
+        if(entityList.get(position).getAccountTypeId()==1 || entityList.get(position).getAccountTypeId()==2){
+            if(balance>0){
+                description2.setTextColor(Color.rgb(00,99,00));
+            }else{
+                description2.setTextColor(Color.BLACK);
+            }
+        }
+        if(entityList.get(position).getAccountTypeId()==3 || entityList.get(position).getAccountTypeId()==4){
+            if(balance>0){
+                description2.setTextColor(Color.rgb(99,00,00));
+            }else{
+                description2.setTextColor(Color.BLACK);
+            }
+        }
         if(entityList.get(position).getAccountTypeId()==1) {
             image.setImageResource(R.drawable.wallet);
         }
