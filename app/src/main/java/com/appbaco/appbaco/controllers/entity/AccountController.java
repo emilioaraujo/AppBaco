@@ -66,16 +66,16 @@ public class AccountController {
 
 
     public Account findById(Integer id)throws Exception {
-        Account tag = null;
+        Account entity = null;
         try {
             Cursor c = dataBase.rawQuery("select id,sync,account_type_id,name,description,initial_balance,amount_limit,pay_day,expire_month,expire_year,color from main.account where id=" + id, null);
             if (c.moveToFirst()) {
-                tag = new Account(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3), c.getString(4), c.getDouble(5),c.getDouble(6),c.getInt(7),c.getInt(8),c.getInt(9),c.getInt(10));
+                entity = new Account(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3), c.getString(4), c.getDouble(5),c.getDouble(6),c.getInt(7),c.getInt(8),c.getInt(9),c.getInt(10));
             }
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }
-        return tag;
+        return entity;
     }
 
     public ArrayList<Account> findAll() throws Exception {

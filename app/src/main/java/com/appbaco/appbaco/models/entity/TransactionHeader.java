@@ -1,5 +1,6 @@
 package com.appbaco.appbaco.models.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -16,11 +17,22 @@ public class TransactionHeader {
     String concept;
     String image;
     String location;
+    ArrayList<TransactionDetail> transactionDetails;
 
     public TransactionHeader() {
+        this.id = 0;
+        this.sync = 0;
+        this.transactionTypeId = 0;
+        this.dateTimeCreate = new Date();
+        this.dateTime = new Date();
+        this.complete = 0;
+        this.concept = "";
+        this.image = "";
+        this.location = "";
+        this.transactionDetails = new ArrayList<>();
     }
 
-    public TransactionHeader(Integer id, Integer sync, Integer transactionTypeId, Date dateTimeCreate, Date dateTime, Integer complete, String concept, String image, String location) {
+    public TransactionHeader(Integer id, Integer sync, Integer transactionTypeId, Date dateTimeCreate, Date dateTime, Integer complete, String concept, String image, String location, ArrayList<TransactionDetail> transactionDetails) {
         this.id = id;
         this.sync = sync;
         this.transactionTypeId = transactionTypeId;
@@ -30,6 +42,7 @@ public class TransactionHeader {
         this.concept = concept;
         this.image = image;
         this.location = location;
+        this.transactionDetails=transactionDetails;
     }
 
     public Integer getId() {
@@ -102,6 +115,14 @@ public class TransactionHeader {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public ArrayList<TransactionDetail> getTransactionDetails() {
+        return transactionDetails;
+    }
+
+    public void setTransactionDetails(ArrayList<TransactionDetail> transactionDetails) {
+        this.transactionDetails = transactionDetails;
     }
 
     @Override

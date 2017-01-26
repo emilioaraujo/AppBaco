@@ -1,6 +1,7 @@
 package com.appbaco.appbaco.models.activity;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -11,12 +12,9 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.appbaco.appbaco.controllers.fragment.CategoryList;
-import com.appbaco.appbaco.models.entity.TransactionCategory;
 import com.appbaco.appbaco.R;
-
-
+import com.appbaco.appbaco.controllers.fragment.TransactionList;
+import com.appbaco.appbaco.models.entity.TransactionHeader;
 
 import java.util.List;
 
@@ -24,13 +22,13 @@ import java.util.List;
  * Created by MARAUJO on 12/28/2016.
  */
 
-public class ListCategoryListAdapter<T extends TransactionCategory> extends ArrayAdapter {
+public class ListTransactionAdapter<T extends TransactionHeader> extends ArrayAdapter {
 
     private Activity activity;
-    private List<TransactionCategory> entityList;
+    private List<TransactionHeader> entityList;
     private Fragment callerFragment;
 
-    public ListCategoryListAdapter(Activity context, Fragment callerFragment, int resource, List<TransactionCategory> entities) {
+    public ListTransactionAdapter(Activity context, Fragment callerFragment, int resource, List<TransactionHeader> entities) {
         super(context, resource, entities);
         this.activity = context;
         this.entityList=entities;
@@ -41,29 +39,29 @@ public class ListCategoryListAdapter<T extends TransactionCategory> extends Arra
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = activity.getLayoutInflater();
-        convertView = inflater.inflate(R.layout.list_category_item, null, true);
+        convertView = inflater.inflate(R.layout.list_transaction_item, null, true);
 
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
         TextView title = (TextView) convertView.findViewById(R.id.title);
         TextView description = (TextView) convertView.findViewById(R.id.lvDescription);
+        TextView description2 = (TextView) convertView.findViewById(R.id.lvDescription2);
         final ImageView itemActions = (ImageView) convertView.findViewById(R.id.item_actions);
 
-        //get first and second letter of each String item
-        String letters;
 
-        if (entityList.get(position).getName().contains(" ")) {
-            letters = String.valueOf(entityList.get(position).getName().charAt(0)).toUpperCase()
-                    + String.valueOf(entityList.get(position).getName().charAt(entityList.get(position).getName().toString().indexOf(' ') + 1)).toUpperCase();
-        } else {
-            letters = String.valueOf(entityList.get(position).getName().charAt(0)).toUpperCase()
-                    + String.valueOf(entityList.get(position).getName().charAt(1)).toUpperCase();
+        title.setText(entityList.get(position).getId().toString());
+        description.setText(entityList.get(position).getId().toString());
+        Double balance=20.00;
+        description2.setText("Actual Balance: "+balance);
+
+        if(entityList.get(position).getTransactionTypeId()==1) {
+            image.setImageResource(R.drawable.wallet);
         }
-        //int color = colorId.get(position);
-        TextDrawable drawable = TextDrawable.builder().buildRound(letters, entityList.get(position).getColor()); // radius in px
-
-        title.setText(entityList.get(position).getName());
-        description.setText(entityList.get(position).getDescription());
-        image.setImageDrawable(drawable);
+        if(entityList.get(position).getTransactionTypeId()==2) {
+            image.setImageResource(R.drawable.currency_usd);
+        }
+        if(entityList.get(position).getTransactionTypeId()==3) {
+            image.setImageResource(R.drawable.cash_multiple);
+        }
 
         //---
         itemActions.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +72,7 @@ public class ListCategoryListAdapter<T extends TransactionCategory> extends Arra
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         int i = item.getItemId();
-                        CategoryList fragment = (CategoryList) callerFragment;
+                        TransactionList fragment = (TransactionList) callerFragment;
 
                         if (i == R.id.action_show_details) {
                             fragment.showRecordDetail(entityList.get(position));
