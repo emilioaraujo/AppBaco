@@ -89,6 +89,33 @@ private TransactionDetailController transactionDetailController;
         return entity;
     }
 
+    public Double getPeriodAmount(){
+        Double result=0D;
+        /*
+        try {
+            Cursor c = dataBase.rawQuery("select id,sync,transaction_type_id,datetime_create,datetime,completed,concept,image,location from main.transaction_header order by id desc", null);
+            if (c.moveToFirst()) {
+                do {
+                    entities.add(new TransactionHeader(
+                            c.getInt(0),
+                            c.getInt(1),
+                            c.getInt(2),
+                            new Date(),
+                            new Date(),
+                            c.getInt(5),
+                            c.getString(6),
+                            c.getString(7),
+                            c.getString(8),
+                            transactionDetailController.findByTransactionId(c.getInt(0))));
+                } while (c.moveToNext());
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        */
+        return result;
+    }
+
     public ArrayList<TransactionHeader> findAll() throws Exception {
         ArrayList<TransactionHeader> entities = new ArrayList<TransactionHeader>();
         try {
