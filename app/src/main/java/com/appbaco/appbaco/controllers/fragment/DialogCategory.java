@@ -78,11 +78,21 @@ public class DialogCategory extends DialogFragment {
 
     // TODO: agregar comentario de funcionalidad
     private boolean validate(View view) {
+       String message ="";
+        boolean error = false;
         if (this.txtCategoryName.getText().toString().isEmpty()) {
-            this.txtCategoryName.setError("Name does not be blank");
-            return false;
+            message="Name does not be blank";
+            error=true;
         }
-        return true;
+        if(error){
+            Snackbar snackbar = Snackbar.make(view, "Error: "+message, Snackbar.LENGTH_LONG).setAction("Action", null);
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBackgroundError));
+            snackbar.show();
+            return false;
+        }else {
+            return true;
+        }
     }
 
     // TODO: agregar comentario de funcionalidad
@@ -134,9 +144,9 @@ public class DialogCategory extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         if (!validate(v)) {
-                            actionListener.onCancel();
                             return;
                         }
+
 
                         TransactionCategory entity = new TransactionCategory();
                         entity.setId(id);
@@ -160,6 +170,7 @@ public class DialogCategory extends DialogFragment {
                             snackbar.show();
                             e.printStackTrace();
                         }
+
                     }
                 }
         );

@@ -233,10 +233,17 @@ public class CategoryList extends Fragment {
                             entityController.delete(entity);
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Snackbar snackbar = Snackbar.make(view,  "Error: " + e.getMessage(), Snackbar.LENGTH_LONG).setAction("Action", null);
+                            View sbView = snackbar.getView();
+                            sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBackgroundError));
+                            snackbar.show();
                         }
+                        Snackbar snackbar = Snackbar.make(view, "Success: Record Deleted!", Snackbar.LENGTH_LONG).setAction("Action", null);
+                        View sbView = snackbar.getView();
+                        sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBackgrounSuccess));
+                        snackbar.show();
                         configureList();
-                        Toast.makeText(getContext(), "Record Deleted!", Toast.LENGTH_SHORT).show();
+
                     }
                 })
                 .setNegativeButton(android.R.string.no, null).show();

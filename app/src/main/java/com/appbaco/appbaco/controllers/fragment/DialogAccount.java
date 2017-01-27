@@ -103,14 +103,7 @@ public class DialogAccount extends DialogFragment implements
         this.actionListener = listener;
     }
 
-    // TODO: agregar comentario de funcionalidad
-    private boolean validate(View view) {
-        if (this.txtAccountName.getText().toString().isEmpty()) {
-            this.txtAccountDescription.setError("Name does not be blank");
-            return false;
-        }
-        return true;
-    }
+
 
 
     // TODO: agregar comentario de funcionalidad
@@ -271,10 +264,10 @@ public class DialogAccount extends DialogFragment implements
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //if (!validate(v)) {
-                        //    return;
-                        //}
 
+                        if (!validate(v)) {
+                            return;
+                        }
                         Account entity = new Account();
                         entity.setId(id);
                         entity.setColor(Integer.parseInt(spColors.getSelectedItem().toString()));
@@ -332,46 +325,44 @@ public class DialogAccount extends DialogFragment implements
 
     }
 
-    private boolean validate() {
-        // TODO: Organizar de acuerdo al orden en el form
+    private boolean validate(View view) {
+        String message ="";
+        boolean error = false;
         if (this.spAccountType.getSelectedItemPosition() == 0) {
-            //TextView errorText = (TextView) this.spAccountType.getSelectedView();
-            //errorText.setError("");
-            //errorText.setTextColor(Color.RED);
-            //errorText.setText("Mandatory");
-            Snackbar.make(null, "Welcome to AndroidHive", Snackbar.LENGTH_LONG).show();
-            return false;
+            message="Select the Account Type";
+            error=true;
         }
 
         if (this.txtAccountName.getText().toString().isEmpty()) {
-            this.txtAccountName.setError("Mandatory");
-            return false;
+            message="Name does not be blank";
+            error=true;
         }
 
         if (this.spAccountType.getSelectedItemPosition() == 3 || this.spAccountType.getSelectedItemPosition() == 4) {
             if (this.spPayDay.getSelectedItemPosition() == 0) {
-                TextView errorText = (TextView) this.spPayDay.getSelectedView();
-                errorText.setError("");
-                errorText.setTextColor(Color.RED);
-                errorText.setText("Mandatory");
-                return false;
+                message="Select the day of pay";
+                error=true;
             }
             if (this.spMonthExpire.getSelectedItemPosition() == 0) {
-                TextView errorText = (TextView) this.spMonthExpire.getSelectedView();
-                errorText.setError("");
-                errorText.setTextColor(Color.RED);
-                errorText.setText("Mandatory");
-                return false;
+                message="Select Expire month";
+                error=true;
             }
             if (this.spYearExpire.getSelectedItemPosition() == 0) {
-                TextView errorText = (TextView) this.spYearExpire.getSelectedView();
-                errorText.setError("");
-                errorText.setTextColor(Color.RED);
-                errorText.setText("Mandatory");
-                return false;
+                message="Select Expire Year";
+                error=true;
             }
         }
-        return true;
+
+
+        if(error){
+            Snackbar snackbar = Snackbar.make(view, "Error: "+message, Snackbar.LENGTH_LONG).setAction("Action", null);
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBackgroundError));
+            snackbar.show();
+            return false;
+        }else {
+            return true;
+        }
     }
 
     @Override

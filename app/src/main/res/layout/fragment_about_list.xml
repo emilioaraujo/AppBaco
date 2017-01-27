@@ -15,17 +15,17 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="121dp"
+            android:layout_height="243dp"
             android:weightSum="1"
             android:paddingTop="20dp"
             android:gravity="center_vertical|center_horizontal">
 
             <ImageView
-                android:layout_width="117dp"
+                android:layout_width="161dp"
                 android:layout_height="80dp"
                 app:srcCompat="@mipmap/abacus"
                 android:id="@+id/imageView2"
-                android:layout_weight="0.12"
+                android:layout_weight="0.57"
                 android:adjustViewBounds="false"
                 android:cropToPadding="false"/>
         </LinearLayout>
@@ -72,7 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:id="@+id/textView2"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:layout_weight="0.05"
                         android:textColor="@color/colorPrimaryDark" />
 
@@ -87,8 +87,7 @@
                         android:text="- Manuel Emilio Areaujo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView14"
-                        android:layout_weight="0.05" />
+                        android:id="@+id/textView14" />
 
                     <TextView
                         android:text="- Oier Pesquera"
