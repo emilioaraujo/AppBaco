@@ -2,6 +2,9 @@ package com.appbaco.appbaco.models.activity;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -67,18 +70,30 @@ public class ListAccountAdapter<T extends Account> extends ArrayAdapter {
                 description2.setTextColor(Color.BLACK);
             }
         }
+
+        //Drawable mDrawable = null;
         if(entityList.get(position).getAccountTypeId()==1) {
             image.setImageResource(R.drawable.wallet);
+            //mDrawable = convertView.getResources().getDrawable(R.drawable.wallet);
         }
         if(entityList.get(position).getAccountTypeId()==2) {
             image.setImageResource(R.drawable.currency_usd);
+            //mDrawable = convertView.getResources().getDrawable(R.drawable.currency_usd);
         }
         if(entityList.get(position).getAccountTypeId()==3) {
             image.setImageResource(R.drawable.cash_multiple);
+            //mDrawable = convertView.getResources().getDrawable(R.drawable.cash_multiple);
         }
         if(entityList.get(position).getAccountTypeId()==4) {
             image.setImageResource(R.drawable.credit_card);
+            //mDrawable = convertView.getResources().getDrawable(R.drawable.credit_card);
         }
+        //image.setImageDrawable(mDrawable);
+        PorterDuffColorFilter porterDuffColorFilter = new PorterDuffColorFilter(entityList.get(position).getColor(),PorterDuff.Mode.SRC_ATOP);
+
+        image.setColorFilter(porterDuffColorFilter);
+
+
         //---
         itemActions.setOnClickListener(new View.OnClickListener() {
             @Override

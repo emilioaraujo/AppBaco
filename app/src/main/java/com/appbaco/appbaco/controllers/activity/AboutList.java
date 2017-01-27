@@ -55,7 +55,7 @@ public class AboutList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getActivity().setTitle("About");
+        this.getActivity().setTitle("About AppBaco");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);

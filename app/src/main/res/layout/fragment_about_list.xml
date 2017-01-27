@@ -15,7 +15,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="121dp"
             android:weightSum="1"
             android:paddingTop="20dp"
             android:gravity="center_vertical|center_horizontal">
@@ -33,18 +33,18 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="63dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:text="Versión: 0.1"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3"
-                android:gravity="center_vertical"
                 android:textSize="18sp"
                 android:textAllCaps="false"
                 android:textStyle="normal|bold"
-                tools:layout_margin="@dimen/activity_vertical_margin"/>
+                tools:layout_margin="@dimen/activity_vertical_margin"
+                android:gravity="center_horizontal" />
 
         </LinearLayout>
 
@@ -54,30 +54,53 @@
             android:layout_height="match_parent"
             android:weightSum="1">
 
-            <TextView
-                android:text="Créditos: "
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                android:textSize="18sp"/>
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:padding="10dp">
 
-            <TextView
-                android:text="Emilio Araujo."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView6"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="1"
+                    android:padding="15dp">
 
-            <TextView
-                android:text="Oier Pesquera."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView7"/>
+                    <TextView
+                        android:text="Credits:"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:id="@+id/textView2"
+                        android:textSize="18sp"
+                        android:layout_weight="0.05"
+                        android:textColor="@color/colorPrimaryDark" />
 
-            <TextView
-                android:text="AppBaco facilita la gestión de tus finanzas día a día."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView10"/>
+                    <TextView
+                        android:text="Developers:"
+                        android:layout_width="match_parent"
+                        android:id="@+id/textView6"
+                        android:layout_height="25dp"
+                        android:textStyle="normal|bold" />
+
+                    <TextView
+                        android:text="- Manuel Emilio Areaujo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView14"
+                        android:layout_weight="0.05" />
+
+                    <TextView
+                        android:text="- Oier Pesquera"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView10"
+                        android:layout_weight="0.05" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
     </LinearLayout>
 

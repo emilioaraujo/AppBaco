@@ -78,6 +78,21 @@ public class AccountController {
         return entity;
     }
 
+    public ArrayList<Account> findByAccountType(Integer accountTypeId)throws Exception {
+        ArrayList<Account> entities = new ArrayList<Account>();
+        try {
+            Cursor c = dataBase.rawQuery("select id,sync,account_type_id,name,description,initial_balance,amount_limit,pay_day,expire_month,expire_year,color from main.account where account_type_id="+accountTypeId+" order by account_type_id asc", null);
+            if (c.moveToFirst()) {
+                do {
+                    entities.add(new Account(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3), c.getString(4), c.getDouble(5),c.getDouble(6),c.getInt(7),c.getInt(8),c.getInt(9),c.getInt(10)));
+                } while (c.moveToNext());
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return entities;
+    }
+
     public ArrayList<Account> findAll() throws Exception {
         ArrayList<Account> entities = new ArrayList<Account>();
         try {

@@ -56,6 +56,7 @@ public class DialogAccount extends DialogFragment implements
     private EditText txtInitialBalance;
     private EditText txtAmountLimit;
     private TextView lblPayDay;
+    private TextView lblExpireYear;
     private TextView lblExpireEnd;
     private TextInputLayout tilAmountLimit;
     private Spinner spAccountType;
@@ -122,6 +123,7 @@ public class DialogAccount extends DialogFragment implements
         //labels
         this.lblPayDay = (TextView) v.findViewById(R.id.lblPayDay);
         this.lblExpireEnd = (TextView) v.findViewById(R.id.lblExpireEnd);
+        this.lblExpireYear = (TextView) v.findViewById(R.id.lblExpireYear);
 
         btnCancel = (Button) v.findViewById(R.id.btnCancel);
         btnSave = (Button) v.findViewById(R.id.btnSave);
@@ -313,6 +315,7 @@ public class DialogAccount extends DialogFragment implements
             this.spPayDay.setVisibility(View.VISIBLE);
             this.lblExpireEnd.setVisibility(View.VISIBLE);
             this.spMonthExpire.setVisibility(View.VISIBLE);
+            this.lblExpireYear.setVisibility(View.VISIBLE);
             this.spYearExpire.setVisibility(View.VISIBLE);
             this.txtAmountLimit.setVisibility(View.VISIBLE);
 
@@ -321,6 +324,7 @@ public class DialogAccount extends DialogFragment implements
             this.spPayDay.setVisibility(View.GONE);
             this.lblExpireEnd.setVisibility(View.GONE);
             this.spMonthExpire.setVisibility(View.GONE);
+            this.lblExpireYear.setVisibility(View.GONE);
             this.spYearExpire.setVisibility(View.GONE);
             this.txtAmountLimit.setVisibility(View.GONE);
 

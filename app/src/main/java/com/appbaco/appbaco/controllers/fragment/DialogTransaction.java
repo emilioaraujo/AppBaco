@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,10 +48,14 @@ public class DialogTransaction extends DialogFragment implements
     private Button btnSave;
     private Integer id;
     private Integer transactionTypeId;
-
-private TextView txtTransactionAmount;
-private TextView lblTransactionType;
+    private ArrayList<Account> fromAccountList;
+    private ArrayList<Account> toAccountList;
+    private TextView txtTransactionAmount;
+    private TextView lblTransactionType;
+    private Spinner spFromAccount;
+    private Spinner spToAccount;
     private final TransactionHeaderController entityController = new TransactionHeaderController(MainActivity.appbacoDatabase);
+    private AccountController accountController;
 
     public DialogTransaction() {
 
@@ -63,7 +68,7 @@ private TextView lblTransactionType;
         this.id = 0;
         if (getArguments() != null) {
             this.id = getArguments().getInt("id");
-            this.transactionTypeId= getArguments().getInt("transaction_type_id");
+            this.transactionTypeId = getArguments().getInt("transaction_type_id");
         }
         return createDialog();
     }
@@ -95,29 +100,37 @@ private TextView lblTransactionType;
         builder.setView(v);
 
 
+        accountController= new AccountController(MainActivity.appbacoDatabase);
         btnCancel = (Button) v.findViewById(R.id.btnCancel);
         btnSave = (Button) v.findViewById(R.id.btnSave);
         txtTransactionAmount = (TextView) v.findViewById(R.id.txtTransactionAmount);
-        lblTransactionType= (TextView) v.findViewById(R.id.lblTransactionType);
+        lblTransactionType = (TextView) v.findViewById(R.id.lblTransactionType);
+        spFromAccount = (Spinner) v.findViewById(R.id.spFromAccount);
 
-        if(transactionTypeId==1){
+        if (transactionTypeId == 1) {
             lblTransactionType.setText("Account Transfer");
         }
-        if(transactionTypeId==2){
+        if (transactionTypeId == 2) {
             lblTransactionType.setText("Income Transaction");
         }
-        if(transactionTypeId==3){
+        if (transactionTypeId == 3) {
             lblTransactionType.setText("Expense Transaction");
         }
-       /*
-        ArrayAdapter<CharSequence> adapterAccountType = ArrayAdapter.createFromResource(getActivity(), R.array.account_type, android.R.layout.simple_spinner_item);
-        adapterAccountType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spAccountType.setAdapter(adapterAccountType);
+        if(transactionTypeId==2 || transactionTypeId==3){
+            try {
+                fromAccountList = accountController.findByAccountType(transactionTypeId);
+            }catch(Exception ex){
+                Snackbar snackbar = Snackbar.make(getView(), "Error: "+ex.getMessage(), Snackbar.LENGTH_LONG).setAction("Action", null);
+                View sbView = snackbar.getView();
+                sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBackgroundError));
+                snackbar.show();
+            }
+        }
 
-        ArrayAdapter<String> spinnerPayDayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, days);
-        spinnerPayDayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.spPayDay.setAdapter(spinnerPayDayAdapter);
-*/
+        //ArrayAdapter<Account> adapterAccounts = ArrayAdapter.createFromResource(getActivity(), R.array.account_type, android.R.layout.simple_spinner_item);
+        //adapterAccounts.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //spFromAccount.setAdapter(adapterAccounts);
+
 
         //--
 
@@ -150,7 +163,7 @@ private TextView lblTransactionType;
                 Toast.makeText(getActivity(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
             }
             if (entity != null) {
-              //TODO cargar controles
+                //TODO cargar controles
             }
         }
 
@@ -204,7 +217,6 @@ private TextView lblTransactionType;
         );
         return builder.create();
     }
-
 
 
     private boolean validate() {

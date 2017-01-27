@@ -6,31 +6,31 @@
         <item
             android:id="@+id/nav_mainmenu"
             android:icon="@drawable/home_outline"
-            android:title="Pantalla Principal" />
+            android:title="Main Screen" />
         <item
             android:id="@+id/nav_acount"
             android:icon="@drawable/bank"
-            android:title="Cuenta" />
+            android:title="Accounts" />
         <item
             android:id="@+id/nav_categories"
             android:icon="@drawable/library_plus"
-            android:title="Categorias" />
+            android:title="Transaction Categories" />
         <item
             android:id="@+id/nav_transactions"
             android:icon="@drawable/swap_vertical"
-            android:title="Transacciones" />
+            android:title="Transactions" />
         <item
             android:id="@+id/nav_search"
             android:icon="@drawable/magnify"
-            android:title="Consultas" />
+            android:title="Consults" />
         <item
             android:id="@+id/nav_config"
             android:icon="@drawable/settings"
-            android:title="Configuración" />
+            android:title="Application Settings" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/help"
-            android:title="Sobre la Aplicación" />
+            android:title="About Application" />
     </group>
 
 </menu>

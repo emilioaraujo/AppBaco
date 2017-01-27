@@ -19,8 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-
-        app:backgroundTint="@android:color/holo_orange_light"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:backgroundTint="@color/colorPrimary"
+        app:fab_labelStyle="@style/Etiquetas"
+        android:tint="@color/white"
+        app:srcCompat="@drawable/plus" />
 
 </android.support.design.widget.CoordinatorLayout>

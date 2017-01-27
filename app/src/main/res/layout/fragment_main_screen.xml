@@ -191,6 +191,7 @@
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/colorTransfer"
             fab:fab_icon="@drawable/shuffle_variant"
+
             fab:fab_size="mini"
             fab:fab_title="Account Transfer" />
 
